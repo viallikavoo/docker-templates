@@ -8,12 +8,12 @@ COPY go.* ./
 RUN go mod download
 # Copy over Go source code
 COPY *.go ./
-# Run the Go build and output binary under hello_go_http
-RUN go build -o /hello_world
+# Run the Go build and output binary under {APP_NAME}
+RUN go build -o /{APP_NAME}
 # Make sure to expose the port the HTTP server is using
 # Run the app binary when we run the container
 
 
 FROM alpine:3.16
-COPY --from=builder /hello_world .
-ENTRYPOINT ["/hello_world"]
+COPY --from=builder /{APP_NAME} .
+ENTRYPOINT ["/{APP_NAME}"]
